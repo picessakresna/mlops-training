@@ -95,20 +95,28 @@ jobs:
         run: |
           python3 - <<'PY'
           import json
+          import subprocess
           import time
           import urllib.error
           import urllib.request
 
           base_url = "http://127.0.0.1:8080"
           for attempt in range(30):
+              running = subprocess.check_output(
+                  ["docker", "inspect", "--format", "{{.State.Running}}", "mlops-api-ci"],
+                  text=True,
+              ).strip()
+              if running != "true":
+                  raise RuntimeError("API container stopped; see the container logs step")
               try:
                   with urllib.request.urlopen(f"{base_url}/health", timeout=2) as response:
                       health = json.load(response)
                   assert health == {"status": "ok"}, health
                   break
-              except (urllib.error.URLError, TimeoutError):
+              except (urllib.error.URLError, TimeoutError, ConnectionError) as error:
+                  print(f"API not ready ({attempt + 1}/30): {error}", flush=True)
                   if attempt == 29:
-                      raise
+                      raise RuntimeError("API did not become ready; see container logs") from error
                   time.sleep(2)
 
           request = urllib.request.Request(
