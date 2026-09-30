@@ -1,0 +1,23 @@
+artifact_path: file:///D:/BNI/ODP/MATERI DAN FILE/BOOTCAMP/PYTHON/MLOPS/mlops-training/mlruns/2/models/m-5e6503df948c4c7e8b91adc6d9dc5f74/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: pickle
+    sklearn_version: 1.9.1
+    skops_trusted_types: null
+mlflow_version: 3.16.1
+model_id: m-5e6503df948c4c7e8b91adc6d9dc5f74
+model_size_bytes: 4391349
+model_uuid: m-5e6503df948c4c7e8b91adc6d9dc5f74
+prompts: null
+run_id: ae2e5190812e47969e88911934ef9713
+utc_time_created: '2026-09-30 06:11:22.476383'

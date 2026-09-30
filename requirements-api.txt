@@ -1,0 +1,5 @@
+# Reuse the dependencies recorded with the packaged model.
+-r model/requirements.txt
+fastapi==0.141.1
+uvicorn==0.54.0
+pydantic==2.13.5
